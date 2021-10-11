@@ -1,151 +1,56 @@
 <?php
 
-require_once 'car.php';
-$car = new Car('green', 4, 'electric');
-var_dump($car);
+require_once 'Vehicle.php';
 
-require_once 'truck.php';
-$truck = new Truck (50, 'red', 5 ,'nuclear');
-
-class Vehicle 
-
+class truck extends Vehicle
 {
 
- 
-
-    protected string $color;
+    private int $storageCapacity = 0;
 
 
-    protected int $currentSpeed;
+    private int $loadingCapacity;
+
+    private int $energy;
 
 
-    protected int $nbSeats;
-
-
-    protected int $nbWheels;
-
-
-    public function __construct(string $color, string $nbSeats)
-
+    public function __construct(string $color, int $nbSeats, string $energy, int $storageCapacity)
     {
-
-        $this->color = $color;
-
-        $this->nbSeats = $nbSeats;
-
+        parent::__construct($color, $nbSeats);
+        $this->energy = $energy;
+        $this->storageCapacity = $storageCapacity;
     }
 
-
-    public function forward(): string
-
+    public function getEnergy(): string
     {
-
-        $this->currentSpeed = 15;
-
-        return "Go !";
-
+        return $this->energy;
     }
 
-
-    public function brake(): string
-
+    public function setEnergy(string $energy): Truck
     {
-
-        $sentence = "";
-
-        while ($this->currentSpeed > 0) {
-
-            $this->currentSpeed--;
-
-            $sentence .= "Brake !!!";
-
+        if (in_array($energy, Car::ALLOWED_ENERGIES)) {
+            $this->energy = $energy;
         }
-
-
-        $sentence .= "I'm stopped !";
-
-        return $sentence;
-
+        return $this;
     }
-    public function start(): string
+
+    public function getstorageCapacity(): int
     {
-        return "Start !";
+        return $this->$storageCapacity;
     }
 
-
-    public function getCurrentSpeed(): int
-
+    public function setstorageCapacity(int $storageCapacity): void
     {
-
-        return $this->currentSpeed;
-
+        $this->storageCapacity = $storageCapacity;
     }
 
+    public function getloadingCapacity(string $loadingCapacity): string
+    {
+        return $this->$loadingCapacity;
+    }
 
-    public function setCurrentSpeed(int $currentSpeed): void
-
+    public function setloadingCapacity(int $loadingCapacity): void
     {
 
-        if($currentSpeed >= 0){
-
-            $this->currentSpeed = $currentSpeed;
-
-        }
-
+        $this->storageCapacity = $loadingCapacity;
     }
-
-
-    public function getColor(): string
-
-    {
-
-        return $this->color;
-
-    }
-
-
-    public function setColor(string $color): void
-
-    {
-
-        $this->color = $color;
-
-    }
-
-
-    public function getNbSeats(): int
-
-    {
-
-        return $this->nbSeats;
-
-    }
-
-
-    public function setNbSeats(int $nbSeats): void
-
-    {
-
-        $this->nbSeats = $nbSeats;
-
-    }
-
-
-    public function getNbWheels(): int
-
-    {
-
-        return $this->nbWheels;
-
-    }
-
-
-    public function setNbWheels(int $nbWheels): void
-
-    {
-
-        $this->nbWheels = $nbWheels;
-
-    }
-
 }
